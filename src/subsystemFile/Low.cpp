@@ -1,35 +1,24 @@
 #include "main.h"
 
-
-void setAll(int power1){
-  krutilkaHigh = power1;
-  krutilkaLow = power1;
+void setLow(int power){
+  krutilkaLow = power;
 }
-void setIntakes(int power){
+void intakesLow(int power){
   intakeLeft = power;
   intakeRight = power;
 }
-void setAllMotors(){
-    int power = 127 * (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1) - controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2));
-    setAll(power);
-    setIntakes(power);
+void setLowMotors(){
+    int power = 127 * (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1) - controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
+    setLow(power);
+    intakesLow(power);
 }
 
-void allkrutilkas(int degrees, int voltage){
+void lowkrutilkas(int degrees, int voltage){
   int direction = abs(degrees) / degrees;
-  krutilkaHigh.tare_position();
-  while(abs(krutilkaHigh.get_position()) < abs(degrees)){
-    setAll(voltage * direction);
+  krutilkaLow.tare_position();
+  while(abs(krutilkaLow.get_position()) < abs(degrees)){
+    setLow(voltage * direction);
     pros::delay(10);
   }
-  setAll(0);
-}
-void intakes(int degrees, int voltage){
-  int direction = abs(degrees) / degrees;
-  intakeLeft.tare_position();
-  while(abs(intakeLeft.get_position()) < abs(degrees)){
-    setIntakes(voltage * direction);
-    pros::delay(10);
-  }
-  setIntakes(0);
+  setLow(0);
 }
