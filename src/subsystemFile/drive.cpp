@@ -1,6 +1,7 @@
 #include "main.h"
 
-pros::ADIGyro gyro('B', 1.00);
+pros::ADIGyro gyro('B', 1.05);
+pros::Vision vision(21);
 
 void setDrive(int left, int right){
   backLeft = left;
@@ -52,9 +53,10 @@ void translate(int units, int voltage){
   //reset motor encoders
   resetDriveEncoders();
   gyro.reset();
+  //gyro.reset();
   //drive forward until units are reached
   while(average() < abs(units)){
-    setDrive(voltage  * direction + gyro.get_value(), voltage * direction - gyro.get_value());
+    setDrive(voltage  * direction - gyro.get_value(), voltage * direction + gyro.get_value());
     pros::delay(10);
   }
   //brief brake
@@ -63,7 +65,6 @@ void translate(int units, int voltage){
   //set drive back to neutral
   setDrive(0, 0);
 }
-
 void rotate(int degrees, int voltage){
   //define our direction
   int direction = abs(degrees) / degrees;
@@ -76,13 +77,13 @@ void rotate(int degrees, int voltage){
   }
   pros::delay(100);
   if(fabs(gyro.get_value()) > abs(degrees * 10)){
-    setDrive(0.5 * voltage * direction,0.5 * -voltage * direction);
+    setDrive(0.3 * voltage * direction,0.3 * -voltage * direction);
     while(fabs(gyro.get_value()) > abs(degrees * 10)) {
       pros::delay(10);
     }
   }
   else if(fabs(gyro.get_value()) < abs(degrees * 10)){
-    setDrive(0.5 * -voltage * direction,0.5 * voltage * direction);
+    setDrive(0.3 * -voltage * direction, 0.3 * voltage * direction);
     while(fabs(gyro.get_value()) < abs(degrees * 10)) {
       pros::delay(10);
     }
