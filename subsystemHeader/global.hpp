@@ -13,3 +13,5 @@ extern pros::Motor frontRight;
 extern pros::Controller controller;
 
 extern pros::ADIGyro gyro;
+
+extern pros::Vision vision;
