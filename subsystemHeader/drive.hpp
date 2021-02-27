@@ -14,3 +14,5 @@ void resetDriveEncoders();
 double average();
 
 void translate(int units, int voltage);
+
+void rotate(int units, int voltage);
