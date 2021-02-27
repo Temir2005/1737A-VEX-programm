@@ -24,7 +24,7 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello, my name is Jamal!");
+	//pros::lcd::set_text(1, "Hello, my name is Jamal!");
 
 	backLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	backRight.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
@@ -35,8 +35,10 @@ void initialize() {
 	intakeLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	intakeRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
-	pros::ADIGyro gyro('B', 1.00);
+	pros::ADIGyro gyro('B', 1.01);
 	pros::delay(2000);
+
+	//pros::Vision vision(21);
 }
 
 /**
